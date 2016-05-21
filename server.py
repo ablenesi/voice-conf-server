@@ -52,30 +52,6 @@ def speaker_recognition():
 
 				data_for_deep_learning[i] = []
 
-				# f = wave.open(WAVE_OUTPUT_FILENAME,"rb")  
-				# #instantiate PyAudio  
-				# p = pyaudio.PyAudio()  
-				# #open stream  
-				# stream = p.open(format = p.get_format_from_width(f.getsampwidth()),  
-				#                 channels = f.getnchannels(),  
-				#                 rate = f.getframerate(),  
-				#                 output = True)  
-				# #read data  
-				# data = f.readframes(1024)  
-
-				# #paly stream  
-				# while data != '':  
-				#     stream.write(data)  
-				#     data = f.readframes(1024)  
-
-				# #stop stream  
-				# stream.stop_stream()  
-				# stream.close()  
-
-				# #close PyAudio  
-				# p.terminate()  
-
-
 class ClientHandler(SocketServer.BaseRequestHandler):
 
 	def flush(self):
@@ -127,8 +103,9 @@ if __name__ == "__main__":
 	speaker_recognition_thread = Thread(target = speaker_recognition)
 	speaker_recognition_thread.setDaemon(True)
 	speaker_recognition_thread.start()
-
-	print "Starting the server on " + str(sys.argv[1]) + ", " + str(sys.argv[2])
-	HOST, PORT = str(sys.argv[1]), int(sys.argv[2])
+	import socket
+	h = str([l for l in ([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1], [[(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]]) if l][0][0])	
+	print "Starting the server on " + h + ", 9876"
+	HOST, PORT = str(h), 9876
 	server = SocketServer.UDPServer((HOST, PORT), ClientHandler)
 	server.serve_forever()

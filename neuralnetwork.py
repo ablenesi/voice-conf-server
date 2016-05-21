@@ -11,8 +11,8 @@ import logreglayer as LL            # LogRegLayer class import
 import spectrogram as sg
 
 class Net:
-    
-    ''' Neural network class
+
+    """ Neural network class
 
             This class represents the whole structure of the neural network.
 
@@ -35,9 +35,9 @@ class Net:
 
                 train_model             -   A function which trains the network and updates its weight matrix based on cost
 
-                evaluate_model          -   A function which determine an input vector's class 
+                evaluate_model          -   A function which determine an input vector's class
 
-    '''
+    """
     
     # Constructor
     def __init__(self, classes=None, learning_rate=0.01, L1_reg=0.00, L2_reg=0.0001):
